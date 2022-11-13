@@ -1,4 +1,4 @@
-import { DydxClient, AccountResponseObject, MarketsResponseObject, PositionsResponseObject } from '@dydxprotocol/v3-client';
+import { DydxClient, AccountResponseObject, MarketsResponseObject, PositionResponseObject } from '@dydxprotocol/v3-client';
 import config = require('config');
 import 'dotenv/config';
 
@@ -47,7 +47,7 @@ class DYDXConnector {
 			await connector.client.private.getAccount(process.env.ETH_ADDRESS);
 		const markets: { markets: MarketsResponeObject } = 
 		      	await connector.client.private.getMarkets(process.env.ETH_ADDRESS);
-		const positions: {positions: PositionsResponseObject} = 
+		const position: {position: PositionResponseObject} = 
 		      	await connector.client.private.getPositions(process.env.ETH_ADDRESS);
 		connector.positionID = account.account.positionId;
 
