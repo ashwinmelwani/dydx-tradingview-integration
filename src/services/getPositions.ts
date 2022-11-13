@@ -1,5 +1,5 @@
 import DYDXConnector from './client';
-import { PositionResponseObject } from '@dydxprotocol/v3-client';
+import { PositionResponseObject, Market, PositionStatus } from '@dydxprotocol/v3-client';
 import config = require('config');
 import 'dotenv/config';
 
