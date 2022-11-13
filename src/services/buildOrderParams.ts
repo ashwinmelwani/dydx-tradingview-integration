@@ -49,8 +49,8 @@ export const buildOrderParams = async (alertMessage: AlertObject) => {
 	const connector = await DYDXConnector.build();
 
 	const market = Market[alertMessage.market as keyof typeof Market];
-	const marketsData = await connector.client.public.getMarkets(markets);
-	console.log('markets', markets);
+	const marketsData = await connector.client.public.getMarkets(market);
+	console.log('markets', market);
 
 	const account: { account: AccountResponseObject } =
 			await connector.client.private.getAccount(process.env.ETH_ADDRESS);
@@ -64,9 +64,24 @@ export const buildOrderParams = async (alertMessage: AlertObject) => {
  // Market.ETH_USD,
 //);
 	
+	const orderSide = 
+	      alertMessage.order == 'buy' ? OrderSide.BUY : OrderSide.SELL;
+	
 	let orderSize: number;
-	const orderSide =
-		alertMessage.order == 'buy' ? OrderSide.BUY : OrderSide.SELL;
+	if (
+		alertMessage.reverse &&
+		rootData[alertMessage.strategy].isFirstOrder == 'false'
+	) {
+		
+		orderSize = Math.abs(Number(positions.position[ETH_USD].size)) * 2
+
+		//orderSize = alertMessage.size * 2;
+	} else {
+		orderSize = (Number(account.account.freeCollateral) * alertMessage.size)/ latestPrice
+		
+		//orderSize = alertMessage.size;
+	}
+	
 	const stepSize = parseFloat(marketsData.markets[market].stepSize);
 	const stepDecimal = getDecimalPointLength(stepSize);
 	const orderSizeStr = Number(orderSize).toFixed(stepDecimal);
@@ -83,23 +98,6 @@ export const buildOrderParams = async (alertMessage: AlertObject) => {
 
 	const decimal = getDecimalPointLength(tickSize);
 	const price = minPrice.toFixed(decimal);
-	
-	
-	if (
-		alertMessage.reverse &&
-		rootData[alertMessage.strategy].isFirstOrder == 'false'
-	) {
-		
-		orderSize = Math.abs(Number(positions.market.size)) * 2
-
-		//orderSize = alertMessage.size * 2;
-	} else {
-		orderSize = (Number(account.account.freeCollateral) * alertMessage.size)/ latestPrice
-		
-		//orderSize = alertMessage.size;
-	}
-
-	
 
 	const orderParams: OrderParams = {
 		market: market,
