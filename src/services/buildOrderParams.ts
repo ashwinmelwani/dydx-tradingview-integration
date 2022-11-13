@@ -56,7 +56,7 @@ export const buildOrderParams = async (alertMessage: AlertObject) => {
 		rootData[alertMessage.strategy].isFirstOrder == 'false'
 	) {
 		
-		orderSize = abs(Number(account.positions.size)) * 2
+		orderSize = Math.abs(Number(account.positions.size)) * 2
 
 		//orderSize = alertMessage.size * 2;
 	} else {
