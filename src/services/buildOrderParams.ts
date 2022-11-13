@@ -59,11 +59,11 @@ export const buildOrderParams = async (alertMessage: AlertObject) => {
 		rootData[alertMessage.strategy].isFirstOrder == 'false'
 	) {
 		
-		orderSize = Math.abs(Number(account.position.size)) * 2
+		orderSize = Math.abs(Number(client.private.position.size)) * 2
 
 		//orderSize = alertMessage.size * 2;
 	} else {
-		orderSize = (Number(account.account.freeCollateral) * alertMessage.size)/ Number(account.markets.oraclePrice)
+		orderSize = (Number(client.private.account.freeCollateral) * alertMessage.size)/ Number(client.public.markets.oraclePrice)
 		
 		//orderSize = alertMessage.size;
 	}
