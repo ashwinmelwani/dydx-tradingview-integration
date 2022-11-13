@@ -17,3 +17,15 @@ export const getAccount = async () => {
 		console.error(error);
 	}
 };
+
+
+export const getMarkets = async () => {
+	try {
+		const connector = await DYDXConnector.build();
+		const markets: { markets: MarketsResponseObject } = await client.public.getMarkets();
+		
+		return markets;
+	} catch (error) {
+		console.error(error);
+	}
+};
