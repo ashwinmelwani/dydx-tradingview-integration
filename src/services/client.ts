@@ -1,4 +1,4 @@
-import { DydxClient, AccountResponseObject, MarketsResponseObject, PositionResponseObject } from '@dydxprotocol/v3-client';
+import { DydxClient, AccountResponseObject, Market, PositionStatus, MarketsResponseObject, PositionResponseObject } from '@dydxprotocol/v3-client';
 import config = require('config');
 import 'dotenv/config';
 
