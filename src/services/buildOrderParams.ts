@@ -55,10 +55,20 @@ export const buildOrderParams = async (alertMessage: AlertObject) => {
 		alertMessage.reverse &&
 		rootData[alertMessage.strategy].isFirstOrder == 'false'
 	) {
-		orderSize = alertMessage.size * 2;
+		
+		orderSize = abs(Number(account.positions.size)) * 2
+
+		//orderSize = alertMessage.size * 2;
 	} else {
-		orderSize = alertMessage.size;
+		orderSize = (Number(account.account.freeCollateral) * alertMessage.size)/ Number(account.markets.oraclePrice)
+		
+		//orderSize = alertMessage.size;
 	}
+	
+	if  == 0) {
+			throw new Error('No freeCollateral. Deposit collateral first.');
+		}
+
 
 	const stepSize = parseFloat(marketsData.markets[market].stepSize);
 	const stepDecimal = getDecimalPointLength(stepSize);
