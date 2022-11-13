@@ -67,6 +67,8 @@ export const buildOrderParams = async (alertMessage: AlertObject) => {
 	const orderSide = 
 	      alertMessage.order == 'buy' ? OrderSide.BUY : OrderSide.SELL;
 	
+	const latestPrice = parseFloat(marketsData.markets[market].oraclePrice);
+	
 	let orderSize: number;
 	if (
 		alertMessage.reverse &&
@@ -86,7 +88,7 @@ export const buildOrderParams = async (alertMessage: AlertObject) => {
 	const stepDecimal = getDecimalPointLength(stepSize);
 	const orderSizeStr = Number(orderSize).toFixed(stepDecimal);
 
-	const latestPrice = parseFloat(marketsData.markets[market].oraclePrice);
+	
 	const tickSize = parseFloat(marketsData.markets[market].tickSize);
 	console.log('latestPrice', latestPrice);
 
