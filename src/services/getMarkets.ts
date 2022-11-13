@@ -6,7 +6,7 @@ import 'dotenv/config';
 export const getMarkets = async () => {
 	try {
 		const connector = await DYDXConnector.build();
-		const markets: { markets: MarketsResponseObject } = await client.public.getMarkets(
+		const markets: { markets: MarketsResponseObject } = await connector.client.public.getMarkets(
   Market.ETH_USD,
 );
 		
