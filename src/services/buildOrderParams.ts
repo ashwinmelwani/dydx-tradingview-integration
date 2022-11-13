@@ -64,11 +64,6 @@ export const buildOrderParams = async (alertMessage: AlertObject) => {
 		
 		//orderSize = alertMessage.size;
 	}
-	
-	if  == 0) {
-			throw new Error('No freeCollateral. Deposit collateral first.');
-		}
-
 
 	const stepSize = parseFloat(marketsData.markets[market].stepSize);
 	const stepDecimal = getDecimalPointLength(stepSize);
