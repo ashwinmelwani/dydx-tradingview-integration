@@ -7,6 +7,7 @@ import {
 	AccountResponseObject,
 	MarketsResponseObject,
 	PositionResponseObject,
+	PositionStatus
 
 } from '@dydxprotocol/v3-client';
 import config = require('config');
@@ -48,7 +49,7 @@ export const buildOrderParams = async (alertMessage: AlertObject) => {
 	const connector = await DYDXConnector.build();
 
 	const market = Market[alertMessage.market as keyof typeof Market];
-	const marketsData = await connector.client.public.getMarkets(market);
+	const marketsData = await connector.client.public.getMarkets(markets);
 	console.log('markets', markets);
 
 	const account: { account: AccountResponseObject } =
@@ -62,6 +63,8 @@ export const buildOrderParams = async (alertMessage: AlertObject) => {
 	//const markets: { markets: MarketsResponseObject } = await connector.client.public.getMarkets(
  // Market.ETH_USD,
 //);
+	
+	let orderSize: number;
 	const orderSide =
 		alertMessage.order == 'buy' ? OrderSide.BUY : OrderSide.SELL;
 	const stepSize = parseFloat(marketsData.markets[market].stepSize);
@@ -81,13 +84,13 @@ export const buildOrderParams = async (alertMessage: AlertObject) => {
 	const decimal = getDecimalPointLength(tickSize);
 	const price = minPrice.toFixed(decimal);
 	
-	let orderSize: number;
+	
 	if (
 		alertMessage.reverse &&
 		rootData[alertMessage.strategy].isFirstOrder == 'false'
 	) {
 		
-		orderSize = Math.abs(Number(positions.size)) * 2
+		orderSize = Math.abs(Number(positions.market.size)) * 2
 
 		//orderSize = alertMessage.size * 2;
 	} else {
