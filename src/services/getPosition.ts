@@ -6,7 +6,7 @@ import 'dotenv/config';
 export const getPositions = async () => {
 	try {
 		const connector = await DYDXConnector.build();
-		const position: { position: PositionResponseObject[] } = await client.private.getPosition(
+		const positions: { positions: PositionResponseObject[] } = await client.private.getPosition(
   {
     market: Market.ETH_USD,
     status: PositionStatus.OPEN,
