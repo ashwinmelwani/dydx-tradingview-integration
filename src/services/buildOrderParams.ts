@@ -6,7 +6,7 @@ import {
 	TimeInForce,
 	AccountResponseObject,
 	MarketsResponseObject,
-	PositionsResponseObject,
+	PositionResponseObject,
 } from '@dydxprotocol/v3-client';
 import config = require('config');
 import { AlertObject, OrderParams } from '../types';
@@ -59,7 +59,7 @@ export const buildOrderParams = async (alertMessage: AlertObject) => {
 		rootData[alertMessage.strategy].isFirstOrder == 'false'
 	) {
 		
-		orderSize = Math.abs(Number(account.positions.size)) * 2
+		orderSize = Math.abs(Number(account.position.size)) * 2
 
 		//orderSize = alertMessage.size * 2;
 	} else {
