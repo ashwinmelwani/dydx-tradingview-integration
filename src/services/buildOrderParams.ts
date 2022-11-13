@@ -7,6 +7,9 @@ import {
 	AccountResponseObject,
 	MarketsResponseObject,
 	PositionResponseObject,
+	Position,
+	Account,
+	Markets
 } from '@dydxprotocol/v3-client';
 import config = require('config');
 import { AlertObject, OrderParams } from '../types';
