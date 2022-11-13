@@ -8,8 +8,7 @@ import {
 	MarketsResponseObject,
 	PositionResponseObject,
 	Position,
-	Account,
-	Markets
+	Account
 } from '@dydxprotocol/v3-client';
 import config = require('config');
 import { AlertObject, OrderParams } from '../types';
@@ -66,7 +65,7 @@ export const buildOrderParams = async (alertMessage: AlertObject) => {
 
 		//orderSize = alertMessage.size * 2;
 	} else {
-		orderSize = (Number(account.account.freeCollateral) * alertMessage.size)/ Number(markets.oraclePrice)
+		orderSize = (Number(account.account.freeCollateral) * alertMessage.size)/ Number(market.oraclePrice)
 		
 		//orderSize = alertMessage.size;
 	}
