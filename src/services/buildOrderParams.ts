@@ -3,7 +3,10 @@ import {
 	OrderSide,
 	Market,
 	OrderType,
-	TimeInForce
+	TimeInForce,
+	AccountResponseObject,
+	MarketsResponseObject,
+	PositionsResponseObject,
 } from '@dydxprotocol/v3-client';
 import config = require('config');
 import { AlertObject, OrderParams } from '../types';
