@@ -47,16 +47,16 @@ export const buildOrderParams = async (alertMessage: AlertObject) => {
 
 	const connector = await DYDXConnector.build();
 
-	const market = Market[alertMessage.market as keyof typeof Market];
-	const marketsData = await connector.client.public.getMarkets(market);
-	// console.log('markets', markets);
+	const markets = Market[alertMessage.market as keyof typeof Market];
+	const marketsData = await connector.client.public.getMarkets(markets);
+	console.log('markets', markets);
 
 	const account: { account: AccountResponseObject } =
 			await connector.client.private.getAccount(process.env.ETH_ADDRESS);
 	
-	const markets: { markets: MarketsResponseObject } = await connector.client.public.getMarkets(
-  Market.ETH_USD,
-);
+	//const markets: { markets: MarketsResponseObject } = await connector.client.public.getMarkets(
+ // Market.ETH_USD,
+//);
 	const orderSide =
 		alertMessage.order == 'buy' ? OrderSide.BUY : OrderSide.SELL;
 
