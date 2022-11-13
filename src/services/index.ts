@@ -1,5 +1,7 @@
 export * from './getFill';
 export * from './getAccount';
+export * from './getMarkets';
+export * from './getPositions';
 export * from './getOrder';
 export * from './createOrder';
 export * from './exportOrder';
