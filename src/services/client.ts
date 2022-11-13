@@ -52,6 +52,7 @@ class DYDXConnector {
     market: Market.ETH_USD,
     status: PositionStatus.OPEN,
   },
+);
 		connector.positionID = account.account.positionId;
 
 		// console.log(
