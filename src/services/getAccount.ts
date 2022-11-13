@@ -17,33 +17,3 @@ export const getAccount = async () => {
 		console.error(error);
 	}
 };
-
-
-export const getMarkets = async () => {
-	try {
-		const connector = await DYDXConnector.build();
-		const markets: { markets: MarketsResponseObject } = await client.public.getMarkets(
-  Market.ETH_USD,
-);
-		
-		return markets;
-	} catch (error) {
-		console.error(error);
-	}
-};
-
-export const getPositions = async () => {
-	try {
-		const connector = await DYDXConnector.build();
-		const positions: { positions: PositionResponseObject[] } = await client.private.getPositions(
-  {
-    market: Market.ETH_USD,
-    status: PositionStatus.OPEN,
-  },
-);
-		
-		return positions;
-	} catch (error) {
-		console.error(error);
-	}
-};
