@@ -7,7 +7,6 @@ import {
 	AccountResponseObject,
 	MarketsResponseObject,
 	PositionResponseObject,
-	PositionSize
 
 } from '@dydxprotocol/v3-client';
 import config = require('config');
@@ -52,6 +51,12 @@ export const buildOrderParams = async (alertMessage: AlertObject) => {
 	const marketsData = await connector.client.public.getMarkets(market);
 	// console.log('markets', markets);
 
+	const account: { account: AccountResponseObject } =
+			await connector.client.private.getAccount(process.env.ETH_ADDRESS);
+	
+	const markets: { markets: MarketsResponseObject } = await connector.client.public.getMarkets(
+  Market.ETH_USD,
+);
 	const orderSide =
 		alertMessage.order == 'buy' ? OrderSide.BUY : OrderSide.SELL;
 
@@ -65,7 +70,7 @@ export const buildOrderParams = async (alertMessage: AlertObject) => {
 
 		//orderSize = alertMessage.size * 2;
 	} else {
-		orderSize = (Number(account.freeCollateral) * alertMessage.size)/ Number(marketsData.oraclePrice)
+		orderSize = (Number(account.account.freeCollateral) * alertMessage.size)/ Number(markets.oraclePrice)
 		
 		//orderSize = alertMessage.size;
 	}
