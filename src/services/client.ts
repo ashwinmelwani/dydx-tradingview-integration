@@ -47,8 +47,11 @@ class DYDXConnector {
 			await connector.client.private.getAccount(process.env.ETH_ADDRESS);
 		const markets: { markets: MarketsResponseObject } = 
 		      	await connector.client.public.getMarkets();
-		const positions: {positions: PositionResponseObject} = 
-		      	await connector.client.private.getPositions();
+		const positions: { positions: PositionResponseObject[] } = await client.private.getPositions(
+  {
+    market: Market.ETH_USD,
+    status: PositionStatus.OPEN,
+  },
 		connector.positionID = account.account.positionId;
 
 		// console.log(
