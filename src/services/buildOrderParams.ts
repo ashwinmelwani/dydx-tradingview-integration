@@ -47,34 +47,23 @@ export const buildOrderParams = async (alertMessage: AlertObject) => {
 
 	const connector = await DYDXConnector.build();
 
-	const markets = Market[alertMessage.market as keyof typeof Market];
-	const marketsData = await connector.client.public.getMarkets(markets);
+	const market = Market[alertMessage.market as keyof typeof Market];
+	const marketsData = await connector.client.public.getMarkets(market);
 	console.log('markets', markets);
 
 	const account: { account: AccountResponseObject } =
 			await connector.client.private.getAccount(process.env.ETH_ADDRESS);
-	
+	const positions: { positions: PositionResponseObject[] } = await connector.client.private.getPositions(
+  {
+    market: Market.ETH_USD,
+    status: PositionStatus.OPEN,
+  },
+);
 	//const markets: { markets: MarketsResponseObject } = await connector.client.public.getMarkets(
  // Market.ETH_USD,
 //);
 	const orderSide =
 		alertMessage.order == 'buy' ? OrderSide.BUY : OrderSide.SELL;
-
-	let orderSize: number;
-	if (
-		alertMessage.reverse &&
-		rootData[alertMessage.strategy].isFirstOrder == 'false'
-	) {
-		
-		orderSize = Math.abs(Number(PositionSize)) * 2
-
-		//orderSize = alertMessage.size * 2;
-	} else {
-		orderSize = (Number(account.account.freeCollateral) * alertMessage.size)/ Number(markets.oraclePrice)
-		
-		//orderSize = alertMessage.size;
-	}
-
 	const stepSize = parseFloat(marketsData.markets[market].stepSize);
 	const stepDecimal = getDecimalPointLength(stepSize);
 	const orderSizeStr = Number(orderSize).toFixed(stepDecimal);
@@ -91,6 +80,23 @@ export const buildOrderParams = async (alertMessage: AlertObject) => {
 
 	const decimal = getDecimalPointLength(tickSize);
 	const price = minPrice.toFixed(decimal);
+	
+	let orderSize: number;
+	if (
+		alertMessage.reverse &&
+		rootData[alertMessage.strategy].isFirstOrder == 'false'
+	) {
+		
+		orderSize = Math.abs(Number(positions.size)) * 2
+
+		//orderSize = alertMessage.size * 2;
+	} else {
+		orderSize = (Number(account.account.freeCollateral) * alertMessage.size)/ latestPrice
+		
+		//orderSize = alertMessage.size;
+	}
+
+	
 
 	const orderParams: OrderParams = {
 		market: market,
