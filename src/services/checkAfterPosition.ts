@@ -16,7 +16,7 @@ export const checkAfterPosition = async (alertMessage: AlertObject) => {
 	} else {
 		storedPosition = 'flat';
 	}
-
+	return storedPositionSize
 	if (storedPosition != alertMessage.position) {
 		console.error('dYdX position does not match to Tradingview Position.');
 	}
