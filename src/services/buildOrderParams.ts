@@ -11,7 +11,7 @@ import {
 
 } from '@dydxprotocol/v3-client';
 import { checkAfterPosition } from './checkAfterPosition';
-//import * from './checkAfterPosition';
+//import { checkAfterPosition } from './index';
 import config = require('config');
 import { AlertObject, OrderParams } from '../types';
 import 'dotenv/config';
@@ -77,7 +77,7 @@ export const buildOrderParams = async (alertMessage: AlertObject) => {
 		rootData[alertMessage.strategy].isFirstOrder == 'false'
 	) {
 		
-		orderSize = checkAfterPosition(alertMessage) * 2;
+		orderSize = Number(checkAfterPosition(alertMessage)) * 2;
 
 		//orderSize = Math.abs(Number(positions.[alertMessage.market as keyof typeof Market].size)) * 2
 
