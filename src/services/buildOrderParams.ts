@@ -55,7 +55,7 @@ export const buildOrderParams = async (alertMessage: AlertObject) => {
 
 	const account: { account: AccountResponseObject } =
 			await connector.client.private.getAccount(process.env.ETH_ADDRESS);
-	const positions: { positions: PositionResponseObject []} = await connector.client.private.getPositions(
+	const positions: { positions: PositionResponseObject [] } = await connector.client.private.getPositions(
   {
     market: Market.ETH_USD,
     status: PositionStatus.OPEN,
@@ -76,7 +76,7 @@ export const buildOrderParams = async (alertMessage: AlertObject) => {
 		rootData[alertMessage.strategy].isFirstOrder == 'false'
 	) {
 		
-		orderSize = storedPositionSize * 2;
+		orderSize = positions[0].size * 2;
 
 		//orderSize = Math.abs(Number(positions.[alertMessage.market as keyof typeof Market].size)) * 2
 
