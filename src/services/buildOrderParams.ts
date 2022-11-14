@@ -10,6 +10,7 @@ import {
 	PositionStatus
 
 } from '@dydxprotocol/v3-client';
+import storedPositionSize from './checkAfterPosition';
 import config = require('config');
 import { AlertObject, OrderParams } from '../types';
 import 'dotenv/config';
