@@ -75,7 +75,7 @@ export const buildOrderParams = async (alertMessage: AlertObject) => {
 		rootData[alertMessage.strategy].isFirstOrder == 'false'
 	) {
 		
-		orderSize = Number(positions.[alertMessage.market as keyof typeof Market].size) * 2
+		orderSize = Number(positions.["ETH_USD"].size) * 2
 
 		//orderSize = Math.abs(Number(positions.[alertMessage.market as keyof typeof Market].size)) * 2
 
