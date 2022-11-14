@@ -11,6 +11,7 @@ import {
 
 } from '@dydxprotocol/v3-client';
 import { checkAfterPosition } from './checkAfterPosition';
+//import * from './checkAfterPosition';
 import config = require('config');
 import { AlertObject, OrderParams } from '../types';
 import 'dotenv/config';
